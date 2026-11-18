@@ -1,0 +1,241 @@
+<!doctype html>
+<html lang="zh-TW">
+  <head>
+    <meta charset="UTF-8" />
+    <title>購物清單</title>
+    <style>
+      /* 網頁預覽樣式 */
+      body {
+        margin: 0;
+        padding: 0;
+        background-color: #f5f5f5;
+        font-family: "Microsoft JhengHei", Arial, sans-serif;
+      }
+
+      /* A4 畫布設定 */
+      .page {
+        width: 210mm;
+        /* height: 297mm; */
+        margin: 10mm auto;
+        padding: 15mm 15mm;
+        background: white;
+        border: 1px solid #d3d3d3;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        box-sizing: border-box;
+        display: flex;
+        flex-direction: column;
+      }
+      /* .page {
+              margin: 10mm auto;
+              padding: 15mm 15mm;
+              display: flex;
+              flex-direction: column;
+            } */
+
+      .page > h3 {
+        background: #0f2ede;
+        color: #fff;
+        padding: 4px 16px;
+      }
+
+      .page > div {
+        display: flex;
+        margin-bottom: 17px;
+      }
+
+      .page .line {
+        background: #a7a7a7;
+        height: 4px;
+      }
+
+      .page > div > div {
+        flex: 1;
+        position: relative;
+        max-width: calc(100% / 3);
+      }
+
+      .page > div > .box.checked {
+        opacity: 0.3;
+      }
+
+      .page > div > .box > img {
+        width: 100%;
+      }
+
+      .page > div > .box > b {
+        position: absolute;
+        right: 0px;
+        top: 20px;
+        background: red;
+        color: #fff;
+        padding: 4px 8px;
+      }
+
+      .page > div > .box > b.day::after {
+        content: "日";
+      }
+
+      /* 列印專用樣式 */
+      @page {
+        size: A4 portrait;
+        margin: 0; /* 清除瀏覽器預設頁首頁尾 */
+      }
+
+      @media print {
+        body {
+          background-color: transparent;
+        }
+        .page {
+          margin: 0;
+          border: none;
+          box-shadow: none;
+          width: 210mm;
+          /* height: 297mm; */
+          page-break-after: always;
+        }
+        /* 確保黑線在列印時足夠清晰 */
+        .signin-table th,
+        .signin-table td {
+          border: 2px solid #000000 !important;
+        }
+        .signin-table th {
+          background-color: #e6e6e6 !important;
+          -webkit-print-color-adjust: exact; /* 強制列印背景顏色 */
+          print-color-adjust: exact;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="page">
+      <h3>藥妝店(OS Drug)</h3>
+      <div>
+        <div class="box" data-val="1">
+          <img src="./1.jpg" />
+          <b style="right: 20px">x1</b>
+        </div>
+        <div class="box" data-val="2">
+          <img src="./2.jpg" />
+          <b>x1</b>
+        </div>
+        <div class="box" data-val="3">
+          <img src="./3.jpg" />
+          <b>x1</b>
+        </div>
+      </div>
+      <div>
+        <div class="box" data-val="4">
+          <img src="./4.png" />
+          <b>x1</b>
+        </div>
+        <div class="box" data-val="12">
+          <img src="./12.webp" />
+          <b>x1包</b>
+        </div>
+        <div></div>
+      </div>
+      <div class="line"></div>
+      <div>
+        <div class="box" data-val="20">
+          <img src="./20.jpg" />
+          <b>x2包</b>
+        </div>
+        <div class="box" data-val="14">
+          <img src="./14.webp" />
+          <b>x2包</b>
+        </div>
+        <div class="box" data-val="13">
+          <img src="./13.webp" />
+          <b>x2包</b>
+        </div>
+      </div>
+      <div class="line"></div>
+      <div>
+        <div class="box" data-val="16">
+          <img src="./16.jpg" />
+          <b class="day">x150</b>
+        </div>
+        <div class="box" data-val="17">
+          <img src="./17.jpg" />
+          <b class="day">x150</b>
+        </div>
+        <div class="box" data-val="18">
+          <img src="./18.jpg" />
+          <b class="day">x150</b>
+        </div>
+        <div class="box" data-val="19">
+          <img src="./19.jpg" />
+          <b class="day">x150</b>
+        </div>
+      </div>
+      <h3>3C</h3>
+      <div>
+        <div class="box" data-val="15">
+          <img src="./15.jpg" />
+          <b>x1</b>
+        </div>
+        <div></div>
+      </div>
+      <h3>Tower Records</h3>
+      <div>
+        <div class="box" data-val="5">
+          <img src="./5.jpg" />
+          <b>x2</b>
+        </div>
+        <div class="box" data-val="6">
+          <img src="./6.jpg" />
+          <b>x8</b>
+        </div>
+        <div class="box" data-val="8">
+          <img src="./8.jpg" />
+        </div>
+      </div>
+      <div>
+        <div class="box" data-val="9" style="min-width: 100%">
+          <img src="./9.jpg" />
+          <b>黑x5、橘x1、深藍x1</b>
+        </div>
+      </div>
+      <div></div>
+      <h3>Family Club.</h3>
+      <div>
+        <div class="box" data-val="10">
+          <img src="./10.png" />
+          <b>x1</b>
+        </div>
+        <div class="box" data-val="11">
+          <img src="./11.png" />
+          <b>x1</b>
+        </div>
+      </div>
+    </div>
+    <script>
+      // 30cm：山田、Eve、Vaundy
+      // 45cm：natori
+
+      const boxes = document.querySelectorAll(".box");
+
+      // 2. 用 forEach 為每一個元素加上點擊監聽
+      boxes.forEach((box) => {
+        box.addEventListener("click", () => {
+          // 切換當前被點擊元素的 checked 狀態
+          box.classList.toggle("checked");
+
+          var test = document.querySelectorAll(".checked");
+          var ary = Array.from(test).map((v) => v.getAttribute("data-val"));
+          setCookie("shopping_list", ary);
+        });
+      });
+
+      function setCookie(name, value, days = 7) {
+        const date = new Date();
+        // 將目前時間加上 7 天的毫秒數
+        date.setTime(date.getTime() + days * 24 * 60 * 60 * 1000);
+        const expires = "expires=" + date.toUTCString();
+
+        // 寫入 Cookie，並加上 path=/ 確保全站皆可讀取
+        document.cookie = `${encodeURIComponent(name)}=${encodeURIComponent(value)}; ${expires}; path=/`;
+      }
+    </script>
+  </body>
+</html>
