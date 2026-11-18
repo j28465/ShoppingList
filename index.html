@@ -213,9 +213,18 @@
       // 30cm：山田、Eve、Vaundy
       // 45cm：natori
 
+      document.addEventListener("DOMContentLoaded", function () {
+        var ary = getCookieArray("shopping_list");
+        ary.forEach(function (val) {
+          var target = document.querySelector(`[data-val="${val}"]`);
+          if (target) {
+            target.classList.add("checked");
+          }
+        });
+      });
+
       const boxes = document.querySelectorAll(".box");
 
-      // 2. 用 forEach 為每一個元素加上點擊監聽
       boxes.forEach((box) => {
         box.addEventListener("click", () => {
           // 切換當前被點擊元素的 checked 狀態
@@ -223,18 +232,28 @@
 
           var test = document.querySelectorAll(".checked");
           var ary = Array.from(test).map((v) => v.getAttribute("data-val"));
-          setCookie("shopping_list", ary);
+          setCookie("shopping_list", ary.join(","));
         });
       });
 
       function setCookie(name, value, days = 7) {
         const date = new Date();
-        // 將目前時間加上 7 天的毫秒數
         date.setTime(date.getTime() + days * 24 * 60 * 60 * 1000);
         const expires = "expires=" + date.toUTCString();
 
-        // 寫入 Cookie，並加上 path=/ 確保全站皆可讀取
         document.cookie = `${encodeURIComponent(name)}=${encodeURIComponent(value)}; ${expires}; path=/`;
+      }
+
+      function getCookieArray(name) {
+        const value = `; ${document.cookie}`;
+        const parts = value.split(`; ${name}=`);
+        if (parts.length === 2) {
+          // 取出值並進行解碼
+          const rawStr = decodeURIComponent(parts.pop().split(";").shift());
+          // 若有內容則用逗號切回陣列，若為空字串則回傳空陣列
+          return rawStr ? rawStr.split(",") : [];
+        }
+        return []; // 找不到該 Cookie 時回傳空陣列
       }
     </script>
   </body>
