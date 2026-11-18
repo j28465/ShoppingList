@@ -215,6 +215,7 @@
 
       document.addEventListener("DOMContentLoaded", function () {
         var ary = getCookieArray("shopping_list");
+        console.log(ary);
         ary.forEach(function (val) {
           var target = document.querySelector(`[data-val="${val}"]`);
           if (target) {
