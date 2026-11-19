@@ -41,6 +41,7 @@
       .page > div {
         display: flex;
         margin-bottom: 17px;
+        gap: 12px;
       }
 
       .page .line {
@@ -52,8 +53,14 @@
         flex: 1;
         position: relative;
         max-width: calc(100% / 3);
+        text-align: center;
       }
-
+      .page > div > .box.noImage {
+        font-size: 36px;
+        border: red solid 2px;
+        padding: 30px 12px;
+        font-weight: bolder;
+      }
       .page > div > .box.checked {
         opacity: 0.3;
       }
@@ -69,6 +76,25 @@
         background: red;
         color: #fff;
         padding: 4px 8px;
+      }
+
+      .page > div > .box.colleague > b {
+        background: green;
+        color: #fff;
+        animation: blink-border 1s infinite alternate;
+      }
+      @keyframes blink-border {
+        0% {
+          background: green;
+          color: #fff;
+        }
+        100% {
+          background: yellow;
+          color: black;
+        }
+      }
+      .page > div > .box.checked.colleague > b {
+        animation: none;
       }
 
       .page > div > .box > b.day::after {
@@ -125,14 +151,21 @@
       </div>
       <div>
         <div class="box" data-val="4">
-          <img src="./4.png" />
+          <img src="./4.jpg" />
           <b>x1</b>
         </div>
         <div class="box" data-val="12">
           <img src="./12.webp" />
           <b>x1包</b>
         </div>
-        <div></div>
+        <div class="box colleague" data-val="24">
+          <img src="./s24.jpg" />
+          <b>x1包</b>
+        </div>
+        <div class="box colleague" data-val="25">
+          <img src="./s25.jpg" />
+          <b>x1罐</b>
+        </div>
       </div>
       <div class="line"></div>
       <div>
@@ -148,6 +181,17 @@
           <img src="./13.webp" />
           <b>x2包</b>
         </div>
+      </div>
+      <div>
+        <div class="box colleague" data-val="22">
+          <img src="./s22.jpg" />
+          <b>x2罐</b>
+        </div>
+        <div class="box colleague" data-val="23">
+          <img src="./s23.jpg" />
+          <b>x3包</b>
+        </div>
+        <div></div>
       </div>
       <div class="line"></div>
       <div>
@@ -168,13 +212,10 @@
           <b class="day">x150</b>
         </div>
       </div>
-      <h3>3C</h3>
+      <h3>衣服(一定要買到)</h3>
       <div>
-        <div class="box" data-val="15">
-          <img src="./15.jpg" />
-          <b>x1</b>
-        </div>
-        <div></div>
+        <div class="box noImage" data-val="27">KJ的襪子</div>
+        <div class="box noImage" data-val="28">KJ的內褲</div>
       </div>
       <h3>Tower Records</h3>
       <div>
@@ -208,12 +249,40 @@
           <b>x1</b>
         </div>
       </div>
+      <h3>寶可夢中心</h3>
+      <div>
+        <div class="box colleague" data-val="26">
+          <img src="./26.jpg" />
+          <b>x5包</b>
+          <div>寶可夢30週年卡牌<br />沒有的話有什麼買什麼</div>
+        </div>
+      </div>
+      <h3>其他</h3>
+      <div>
+        <div class="box colleague" data-val="21">
+          <img src="./s21.jpg" />
+          <b>x1盒</b>
+        </div>
+        <div class="box" data-val="15">
+          <img src="./15.jpg" />
+          <b>x1</b>
+        </div>
+        <div class="box" data-val="29">
+          <img src="./29.webp" />伯爵茶餅乾夾煉乳焦糖
+        </div>
+      </div>
+      <div>
+        <div class="box" data-val="30">
+          <img src="./30.jpg" />
+        </div>
+      </div>
     </div>
     <script>
       // 30cm：山田、Eve、Vaundy
       // 45cm：natori
 
       document.addEventListener("DOMContentLoaded", function () {
+        console.log("DOMContentLoaded");
         var ary = getCookieArray("shopping_list");
         console.log(ary);
         ary.forEach(function (val) {
