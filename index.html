@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="zh-TW">
   <head>
     <meta charset="UTF-8" />
@@ -9,7 +9,7 @@
         margin: 0;
         padding: 20px 0;
         background-color: #121212;
-        font-family: 'Microsoft JhengHei', Arial, sans-serif;
+        font-family: "Microsoft JhengHei", Arial, sans-serif;
       }
 
       /* A4 畫布設定 */
@@ -50,10 +50,10 @@
 
       .page > .store > div > div {
         color: #38bdf8;
+        font-size: 20px;
         flex: 1;
         position: relative;
         max-width: calc(100% / 3);
-        text-align: center;
       }
 
       /* 純文字項目 */
@@ -66,6 +66,9 @@
         font-weight: bolder;
         border-radius: 12px;
         box-sizing: border-box;
+        display: flex;
+        justify-content: center;
+        align-items: center;
       }
 
       /* 商品圖片 */
@@ -88,10 +91,11 @@
         border-radius: 8px;
         font-size: 15px;
         box-shadow: 0 2px 8px rgba(0, 0, 0, 0.5);
+        text-align: left;
       }
 
       .page > .store > div > .box > b.day::after {
-        content: '日';
+        content: "日";
       }
 
       /* =========================================
@@ -112,7 +116,7 @@
       }
 
       .page > .store > div > .box.colleague > b::before {
-        content: '代購 ';
+        content: "代購 ";
         font-weight: 900;
       }
 
@@ -184,17 +188,28 @@
             <img src="./4.jpg" />
             <b>x1</b>
           </div>
+          <div class="box" data-val="32">
+            <img src="./32.jxl" />
+            <b>x1</b>
+          </div>
           <div class="box" data-val="12">
             <img src="./12.webp" />
             <b>x1包</b>
           </div>
-          <div class="box colleague" data-val="24">
-            <img src="./s24.jpg" />
+        </div>
+        <div>
+          <div class="box" data-val="33">
+            <img src="./33.webp" />
             <b>x1包</b>
           </div>
           <div class="box colleague" data-val="25">
-            <img src="./s25.jpg" />
+            <img src="./25.jpg" />
             <b>x1罐</b>
+          </div>
+
+          <div class="box colleague" data-val="24">
+            <img src="./24.jpg" />
+            <b>x1包</b>
           </div>
         </div>
         <div class="line"></div>
@@ -214,11 +229,11 @@
         </div>
         <div>
           <div class="box colleague" data-val="22">
-            <img src="./s22.jpg" />
+            <img src="./22.jpg" />
             <b>x2罐</b>
           </div>
           <div class="box colleague" data-val="23">
-            <img src="./s23.jpg" />
+            <img src="./23.jpg" />
             <b>x3包</b>
           </div>
           <div></div>
@@ -227,7 +242,7 @@
         <div>
           <div class="box" data-val="16">
             <img src="./16.jpg" />
-            <b class="day">x150</b>
+            <b class="day">x120</b>
           </div>
           <div class="box" data-val="17">
             <img src="./17.jpg" />
@@ -243,12 +258,14 @@
           </div>
         </div>
       </div>
-      <h2>衣服(一定要買到)</h2>
+      <h2>衣服</h2>
       <div class="store">
         <div>
-          <div class="box noImage" data-val="27">KJ襪子</div>
-          <div class="box noImage" data-val="28">KJ乃扣</div>
-          <div class="box noImage" data-val="31">成 Airsim<br />背心 M號 <b>x3件</b></div>
+          <div class="box colleague noImage" data-val="27">KJ襪子</div>
+          <div class="box colleague noImage" data-val="28">KJ乃扣</div>
+          <div class="box noImage" data-val="31">
+            成 Airsim<br />背心 M號 <b>x3件</b>
+          </div>
         </div>
       </div>
       <h2>Tower Records</h2>
@@ -269,7 +286,7 @@
         <div>
           <div class="box" data-val="9" style="min-width: 100%">
             <img src="./9.jpg" />
-            <b>黑x5、橘x1、深藍x1</b>
+            <b>成：黑x5、橘x1、深藍x1<br />KJ：自己選</b>
           </div>
         </div>
         <div></div>
@@ -285,6 +302,9 @@
             <img src="./11.png" />
             <b>x1</b>
           </div>
+          <div style="display: flex; align-items: center">
+            實體商品，直接拿了去櫃檯結帳
+          </div>
         </div>
       </div>
       <h2>寶可夢中心</h2>
@@ -293,7 +313,9 @@
           <div class="box colleague" data-val="26">
             <img src="./26.jpg" />
             <b>x5包</b>
-            <div>寶可夢30週年卡牌<br />沒有的話有什麼買什麼</div>
+          </div>
+          <div style="display: flex; align-items: center">
+            寶可夢30週年卡牌<br />沒有的話有什麼買什麼<br />大阪是結帳跟櫃檯說
           </div>
         </div>
       </div>
@@ -301,14 +323,17 @@
       <div class="store">
         <div>
           <div class="box colleague" data-val="21">
-            <img src="./s21.jpg" />
+            <img src="./21.jpg" />
             <b>x1盒</b>
           </div>
           <div class="box" data-val="15">
             <img src="./15.jpg" />
             <b>x1</b>
           </div>
-          <div class="box" data-val="29"><img src="./29.webp" />伯爵茶餅乾夾煉乳焦糖</div>
+          <div class="box" data-val="29">
+            <img src="./29.webp" />
+            <b>伯爵茶餅乾夾煉乳焦糖</b>
+          </div>
         </div>
         <div>
           <div class="box" data-val="30">
@@ -321,35 +346,35 @@
       // 30cm：山田、Eve、Vaundy
       // 45cm：natori
 
-      document.addEventListener('DOMContentLoaded', function () {
-        console.log('DOMContentLoaded');
-        var ary = getCookieArray('shopping_list');
+      document.addEventListener("DOMContentLoaded", function () {
+        console.log("DOMContentLoaded");
+        var ary = getCookieArray("shopping_list");
         console.log(ary);
         ary.forEach(function (val) {
           var target = document.querySelector(`[data-val="${val}"]`);
           if (target) {
-            target.classList.add('checked');
+            target.classList.add("checked");
           }
         });
       });
 
-      const boxes = document.querySelectorAll('.box');
+      const boxes = document.querySelectorAll(".box");
 
       boxes.forEach((box) => {
-        box.addEventListener('click', () => {
+        box.addEventListener("click", () => {
           // 切換當前被點擊元素的 checked 狀態
-          box.classList.toggle('checked');
+          box.classList.toggle("checked");
 
-          var test = document.querySelectorAll('.checked');
-          var ary = Array.from(test).map((v) => v.getAttribute('data-val'));
-          setCookie('shopping_list', ary.join(','));
+          var test = document.querySelectorAll(".checked");
+          var ary = Array.from(test).map((v) => v.getAttribute("data-val"));
+          setCookie("shopping_list", ary.join(","));
         });
       });
 
       function setCookie(name, value, days = 7) {
         const date = new Date();
         date.setTime(date.getTime() + days * 24 * 60 * 60 * 1000);
-        const expires = 'expires=' + date.toUTCString();
+        const expires = "expires=" + date.toUTCString();
 
         document.cookie = `${encodeURIComponent(name)}=${encodeURIComponent(value)}; ${expires}; path=/`;
       }
@@ -359,9 +384,9 @@
         const parts = value.split(`; ${name}=`);
         if (parts.length === 2) {
           // 取出值並進行解碼
-          const rawStr = decodeURIComponent(parts.pop().split(';').shift());
+          const rawStr = decodeURIComponent(parts.pop().split(";").shift());
           // 若有內容則用逗號切回陣列，若為空字串則回傳空陣列
-          return rawStr ? rawStr.split(',') : [];
+          return rawStr ? rawStr.split(",") : [];
         }
         return []; // 找不到該 Cookie 時回傳空陣列
       }
