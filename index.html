@@ -1,279 +1,319 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="zh-TW">
   <head>
     <meta charset="UTF-8" />
     <title>購物清單</title>
     <style>
-      /* 網頁預覽樣式 */
+      /* 網頁預覽樣式 - 深色護眼強化版 */
       body {
         margin: 0;
-        padding: 0;
-        background-color: #f5f5f5;
-        font-family: "Microsoft JhengHei", Arial, sans-serif;
+        padding: 20px 0;
+        background-color: #121212;
+        font-family: 'Microsoft JhengHei', Arial, sans-serif;
       }
 
       /* A4 畫布設定 */
       .page {
         width: 210mm;
-        /* height: 297mm; */
-        margin: 10mm auto;
-        padding: 15mm 15mm;
-        background: white;
-        border: 1px solid #d3d3d3;
-        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        margin: 0 auto;
+      }
+
+      .page > h2 {
+        color: #f3f4f6;
+        margin-bottom: 12px;
+        border-left: 5px solid #38bdf8;
+        padding-left: 12px;
+        letter-spacing: 1px;
+      }
+
+      .page > .store {
+        background-color: #1e1e24;
+        border: 1px solid #2e2e38;
+        border-radius: 16px;
+        box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
         box-sizing: border-box;
+        padding: 24px;
+        margin-bottom: 24px;
+      }
+
+      .page > .store > div {
         display: flex;
-        flex-direction: column;
-      }
-      /* .page {
-              margin: 10mm auto;
-              padding: 15mm 15mm;
-              display: flex;
-              flex-direction: column;
-            } */
-
-      .page > h3 {
-        background: #0f2ede;
-        color: #fff;
-        padding: 4px 16px;
+        margin-bottom: 18px;
+        gap: 14px;
       }
 
-      .page > div {
-        display: flex;
-        margin-bottom: 17px;
-        gap: 12px;
+      .page > .store .line {
+        background: #2e2e38;
+        height: 2px;
+        margin: 20px 0;
       }
 
-      .page .line {
-        background: #a7a7a7;
-        height: 4px;
-      }
-
-      .page > div > div {
+      .page > .store > div > div {
+        color: #38bdf8;
         flex: 1;
         position: relative;
         max-width: calc(100% / 3);
         text-align: center;
       }
-      .page > div > .box.noImage {
-        font-size: 36px;
-        border: red solid 2px;
+
+      /* 純文字項目 */
+      .page > .store > div > .box.noImage {
+        font-size: 32px;
+        background: #272730;
+        border: 2px solid #38bdf8;
+        color: #f3f4f6;
         padding: 30px 12px;
         font-weight: bolder;
-      }
-      .page > div > .box.checked {
-        opacity: 0.3;
+        border-radius: 12px;
+        box-sizing: border-box;
       }
 
-      .page > div > .box > img {
+      /* 商品圖片 */
+      .page > .store > div > .box > img {
         width: 100%;
+        border-radius: 12px;
+        border: 2px solid transparent;
+        box-sizing: border-box;
+        transition: all 0.2s ease;
       }
 
-      .page > div > .box > b {
+      /* 自己的數量標籤（沉穩亮藍，不搶戲） */
+      .page > .store > div > .box > b {
         position: absolute;
-        right: 0px;
-        top: 20px;
-        background: red;
-        color: #fff;
-        padding: 4px 8px;
+        right: 8px;
+        top: 12px;
+        background: #38bdf8;
+        color: #0f172a;
+        padding: 4px 10px;
+        border-radius: 8px;
+        font-size: 15px;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.5);
       }
 
-      .page > div > .box.colleague > b {
-        background: green;
-        color: #fff;
-        animation: blink-border 1s infinite alternate;
+      .page > .store > div > .box > b.day::after {
+        content: '日';
       }
-      @keyframes blink-border {
+
+      /* =========================================
+    同事代購 (.colleague) 強烈視覺提示區
+    ========================================= */
+
+      /* 1. 圖片加上動態發光外框 */
+      .page > .store > div > .box.colleague > img,
+      .page > .store > div > .box.colleague.noImage {
+        animation: glow-box 0.8s infinite alternate;
+      }
+
+      /* 2. 標籤加上「代購」字樣與高反差閃爍 */
+      .page > .store > div > .box.colleague > b {
+        font-size: 16px;
+        padding: 5px 12px;
+        animation: blink-badge 0.8s infinite alternate;
+      }
+
+      .page > .store > div > .box.colleague > b::before {
+        content: '代購 ';
+        font-weight: 900;
+      }
+
+      /* 標籤動畫：螢光粉紅 <-> 亮螢光黃 */
+      @keyframes blink-badge {
         0% {
-          background: green;
-          color: #fff;
+          background: #ff2a85;
+          color: #ffffff;
+          transform: scale(1);
+          box-shadow: 0 0 12px rgba(255, 42, 133, 0.8);
         }
         100% {
-          background: yellow;
-          color: black;
+          background: #facc15;
+          color: #000000;
+          transform: scale(1.08);
+          box-shadow: 0 0 16px rgba(250, 204, 21, 0.9);
         }
       }
-      .page > div > .box.checked.colleague > b {
+
+      /* 外框發光動畫 */
+      @keyframes glow-box {
+        0% {
+          border-color: #ff2a85;
+          box-shadow: 0 0 12px rgba(255, 42, 133, 0.5);
+        }
+        100% {
+          border-color: #facc15;
+          box-shadow: 0 0 16px rgba(250, 204, 21, 0.6);
+        }
+      }
+
+      /* =========================================
+    已購買狀態 (.checked) - 全部熄燈變暗
+    ========================================= */
+      .page > .store > div > .box.checked {
+        opacity: 0.25;
+        filter: grayscale(100%);
+      }
+
+      .page > .store > div > .box.checked.colleague > b,
+      .page > .store > div > .box.checked.colleague > img,
+      .page > .store > div > .box.checked.colleague.noImage {
         animation: none;
-      }
-
-      .page > div > .box > b.day::after {
-        content: "日";
-      }
-
-      /* 列印專用樣式 */
-      @page {
-        size: A4 portrait;
-        margin: 0; /* 清除瀏覽器預設頁首頁尾 */
-      }
-
-      @media print {
-        body {
-          background-color: transparent;
-        }
-        .page {
-          margin: 0;
-          border: none;
-          box-shadow: none;
-          width: 210mm;
-          /* height: 297mm; */
-          page-break-after: always;
-        }
-        /* 確保黑線在列印時足夠清晰 */
-        .signin-table th,
-        .signin-table td {
-          border: 2px solid #000000 !important;
-        }
-        .signin-table th {
-          background-color: #e6e6e6 !important;
-          -webkit-print-color-adjust: exact; /* 強制列印背景顏色 */
-          print-color-adjust: exact;
-        }
+        border-color: transparent;
+        box-shadow: none;
       }
     </style>
   </head>
   <body>
     <div class="page">
-      <h3>藥妝店(OS Drug)</h3>
-      <div>
-        <div class="box" data-val="1">
-          <img src="./1.jpg" />
-          <b style="right: 20px">x1</b>
+      <h2>藥妝店(OS Drug)</h2>
+      <div class="store">
+        <div>
+          <div class="box" data-val="1">
+            <img src="./1.jpg" />
+            <b style="right: 20px">x1</b>
+          </div>
+          <div class="box" data-val="2">
+            <img src="./2.jpg" />
+            <b>x1</b>
+          </div>
+          <div class="box" data-val="3">
+            <img src="./3.jpg" />
+            <b>x1</b>
+          </div>
         </div>
-        <div class="box" data-val="2">
-          <img src="./2.jpg" />
-          <b>x1</b>
+        <div>
+          <div class="box" data-val="4">
+            <img src="./4.jpg" />
+            <b>x1</b>
+          </div>
+          <div class="box" data-val="12">
+            <img src="./12.webp" />
+            <b>x1包</b>
+          </div>
+          <div class="box colleague" data-val="24">
+            <img src="./s24.jpg" />
+            <b>x1包</b>
+          </div>
+          <div class="box colleague" data-val="25">
+            <img src="./s25.jpg" />
+            <b>x1罐</b>
+          </div>
         </div>
-        <div class="box" data-val="3">
-          <img src="./3.jpg" />
-          <b>x1</b>
+        <div class="line"></div>
+        <div>
+          <div class="box" data-val="20">
+            <img src="./20.jpg" />
+            <b>x2包</b>
+          </div>
+          <div class="box" data-val="14">
+            <img src="./14.webp" />
+            <b>x2包</b>
+          </div>
+          <div class="box" data-val="13">
+            <img src="./13.webp" />
+            <b>x2包</b>
+          </div>
+        </div>
+        <div>
+          <div class="box colleague" data-val="22">
+            <img src="./s22.jpg" />
+            <b>x2罐</b>
+          </div>
+          <div class="box colleague" data-val="23">
+            <img src="./s23.jpg" />
+            <b>x3包</b>
+          </div>
+          <div></div>
+        </div>
+        <div class="line"></div>
+        <div>
+          <div class="box" data-val="16">
+            <img src="./16.jpg" />
+            <b class="day">x150</b>
+          </div>
+          <div class="box" data-val="17">
+            <img src="./17.jpg" />
+            <b class="day">x150</b>
+          </div>
+          <div class="box" data-val="18">
+            <img src="./18.jpg" />
+            <b class="day">x150</b>
+          </div>
+          <div class="box" data-val="19">
+            <img src="./19.jpg" />
+            <b class="day">x150</b>
+          </div>
         </div>
       </div>
-      <div>
-        <div class="box" data-val="4">
-          <img src="./4.jpg" />
-          <b>x1</b>
-        </div>
-        <div class="box" data-val="12">
-          <img src="./12.webp" />
-          <b>x1包</b>
-        </div>
-        <div class="box colleague" data-val="24">
-          <img src="./s24.jpg" />
-          <b>x1包</b>
-        </div>
-        <div class="box colleague" data-val="25">
-          <img src="./s25.jpg" />
-          <b>x1罐</b>
+      <h2>衣服(一定要買到)</h2>
+      <div class="store">
+        <div>
+          <div class="box noImage" data-val="27">KJ襪子</div>
+          <div class="box noImage" data-val="28">KJ乃扣</div>
+          <div class="box noImage" data-val="30">一成的Airsim <br />背心 M號 <b>x3件</b></div>
         </div>
       </div>
-      <div class="line"></div>
-      <div>
-        <div class="box" data-val="20">
-          <img src="./20.jpg" />
-          <b>x2包</b>
+      <h2>Tower Records</h2>
+      <div class="store">
+        <div>
+          <div class="box" data-val="5">
+            <img src="./5.jpg" />
+            <b>x2</b>
+          </div>
+          <div class="box" data-val="6">
+            <img src="./6.jpg" />
+            <b>x8</b>
+          </div>
+          <div class="box" data-val="8">
+            <img src="./8.jpg" />
+          </div>
         </div>
-        <div class="box" data-val="14">
-          <img src="./14.webp" />
-          <b>x2包</b>
-        </div>
-        <div class="box" data-val="13">
-          <img src="./13.webp" />
-          <b>x2包</b>
-        </div>
-      </div>
-      <div>
-        <div class="box colleague" data-val="22">
-          <img src="./s22.jpg" />
-          <b>x2罐</b>
-        </div>
-        <div class="box colleague" data-val="23">
-          <img src="./s23.jpg" />
-          <b>x3包</b>
+        <div>
+          <div class="box" data-val="9" style="min-width: 100%">
+            <img src="./9.jpg" />
+            <b>黑x5、橘x1、深藍x1</b>
+          </div>
         </div>
         <div></div>
       </div>
-      <div class="line"></div>
-      <div>
-        <div class="box" data-val="16">
-          <img src="./16.jpg" />
-          <b class="day">x150</b>
-        </div>
-        <div class="box" data-val="17">
-          <img src="./17.jpg" />
-          <b class="day">x150</b>
-        </div>
-        <div class="box" data-val="18">
-          <img src="./18.jpg" />
-          <b class="day">x150</b>
-        </div>
-        <div class="box" data-val="19">
-          <img src="./19.jpg" />
-          <b class="day">x150</b>
+      <h2>Family Club.</h2>
+      <div class="store">
+        <div>
+          <div class="box" data-val="10">
+            <img src="./10.png" />
+            <b>x1</b>
+          </div>
+          <div class="box" data-val="11">
+            <img src="./11.png" />
+            <b>x1</b>
+          </div>
         </div>
       </div>
-      <h3>衣服(一定要買到)</h3>
-      <div>
-        <div class="box noImage" data-val="27">KJ的襪子</div>
-        <div class="box noImage" data-val="28">KJ的內褲</div>
-      </div>
-      <h3>Tower Records</h3>
-      <div>
-        <div class="box" data-val="5">
-          <img src="./5.jpg" />
-          <b>x2</b>
-        </div>
-        <div class="box" data-val="6">
-          <img src="./6.jpg" />
-          <b>x8</b>
-        </div>
-        <div class="box" data-val="8">
-          <img src="./8.jpg" />
+      <h2>寶可夢中心</h2>
+      <div class="store">
+        <div>
+          <div class="box colleague" data-val="26">
+            <img src="./26.jpg" />
+            <b>x5包</b>
+            <div>寶可夢30週年卡牌<br />沒有的話有什麼買什麼</div>
+          </div>
         </div>
       </div>
-      <div>
-        <div class="box" data-val="9" style="min-width: 100%">
-          <img src="./9.jpg" />
-          <b>黑x5、橘x1、深藍x1</b>
+      <h2>其他</h2>
+      <div class="store">
+        <div>
+          <div class="box colleague" data-val="21">
+            <img src="./s21.jpg" />
+            <b>x1盒</b>
+          </div>
+          <div class="box" data-val="15">
+            <img src="./15.jpg" />
+            <b>x1</b>
+          </div>
+          <div class="box" data-val="29"><img src="./29.webp" />伯爵茶餅乾夾煉乳焦糖</div>
         </div>
-      </div>
-      <div></div>
-      <h3>Family Club.</h3>
-      <div>
-        <div class="box" data-val="10">
-          <img src="./10.png" />
-          <b>x1</b>
-        </div>
-        <div class="box" data-val="11">
-          <img src="./11.png" />
-          <b>x1</b>
-        </div>
-      </div>
-      <h3>寶可夢中心</h3>
-      <div>
-        <div class="box colleague" data-val="26">
-          <img src="./26.jpg" />
-          <b>x5包</b>
-          <div>寶可夢30週年卡牌<br />沒有的話有什麼買什麼</div>
-        </div>
-      </div>
-      <h3>其他</h3>
-      <div>
-        <div class="box colleague" data-val="21">
-          <img src="./s21.jpg" />
-          <b>x1盒</b>
-        </div>
-        <div class="box" data-val="15">
-          <img src="./15.jpg" />
-          <b>x1</b>
-        </div>
-        <div class="box" data-val="29">
-          <img src="./29.webp" />伯爵茶餅乾夾煉乳焦糖
-        </div>
-      </div>
-      <div>
-        <div class="box" data-val="30">
-          <img src="./30.jpg" />
+        <div>
+          <div class="box" data-val="30">
+            <img src="./30.jpg" />
+          </div>
         </div>
       </div>
     </div>
@@ -281,35 +321,35 @@
       // 30cm：山田、Eve、Vaundy
       // 45cm：natori
 
-      document.addEventListener("DOMContentLoaded", function () {
-        console.log("DOMContentLoaded");
-        var ary = getCookieArray("shopping_list");
+      document.addEventListener('DOMContentLoaded', function () {
+        console.log('DOMContentLoaded');
+        var ary = getCookieArray('shopping_list');
         console.log(ary);
         ary.forEach(function (val) {
           var target = document.querySelector(`[data-val="${val}"]`);
           if (target) {
-            target.classList.add("checked");
+            target.classList.add('checked');
           }
         });
       });
 
-      const boxes = document.querySelectorAll(".box");
+      const boxes = document.querySelectorAll('.box');
 
       boxes.forEach((box) => {
-        box.addEventListener("click", () => {
+        box.addEventListener('click', () => {
           // 切換當前被點擊元素的 checked 狀態
-          box.classList.toggle("checked");
+          box.classList.toggle('checked');
 
-          var test = document.querySelectorAll(".checked");
-          var ary = Array.from(test).map((v) => v.getAttribute("data-val"));
-          setCookie("shopping_list", ary.join(","));
+          var test = document.querySelectorAll('.checked');
+          var ary = Array.from(test).map((v) => v.getAttribute('data-val'));
+          setCookie('shopping_list', ary.join(','));
         });
       });
 
       function setCookie(name, value, days = 7) {
         const date = new Date();
         date.setTime(date.getTime() + days * 24 * 60 * 60 * 1000);
-        const expires = "expires=" + date.toUTCString();
+        const expires = 'expires=' + date.toUTCString();
 
         document.cookie = `${encodeURIComponent(name)}=${encodeURIComponent(value)}; ${expires}; path=/`;
       }
@@ -319,9 +359,9 @@
         const parts = value.split(`; ${name}=`);
         if (parts.length === 2) {
           // 取出值並進行解碼
-          const rawStr = decodeURIComponent(parts.pop().split(";").shift());
+          const rawStr = decodeURIComponent(parts.pop().split(';').shift());
           // 若有內容則用逗號切回陣列，若為空字串則回傳空陣列
-          return rawStr ? rawStr.split(",") : [];
+          return rawStr ? rawStr.split(',') : [];
         }
         return []; // 找不到該 Cookie 時回傳空陣列
       }
